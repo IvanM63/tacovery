@@ -22,8 +22,9 @@ export default function RestaurantCardView({restaurant}) {
           source={restaurant.image}
         />
       </TouchableOpacity>
-
+      {/* ROW TITLE */}
       <Text style={styles.textTitle}>{restaurant.name}</Text>
+      {/* ROW 3 */}
       <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
         <Image
           source={require('../assets/images/star.png')}

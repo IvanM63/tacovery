@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import {COLORS} from './src/constant';
 import RestaurantDetailScreen from './src/screens/RestaurantDetailScreen';
+import CartScreen from './src/screens/CartScreen';
 
 export default function Navigation() {
   return (
@@ -15,14 +16,19 @@ export default function Navigation() {
           headerShown: false,
         }}>
         <Stack.Screen
-          options={{statusBarColor: COLORS.primary}}
+          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
           name="Home"
           component={HomeScreen}
         />
         <Stack.Screen
-          options={{statusBarColor: COLORS.primary}}
+          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
           name="RestaurantDetailScreen"
           component={RestaurantDetailScreen}
+        />
+        <Stack.Screen
+          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
+          name="Cart"
+          component={CartScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
