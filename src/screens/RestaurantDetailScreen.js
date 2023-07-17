@@ -10,9 +10,10 @@ import {
 import React from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constant';
-import * as Icon from 'react-native-feather';
+
 import FoodMenuCardView from '../components/FoodMenuCardView';
 import CartComp from '../components/cartcomp';
+import ButtonBackComp from '../components/ButtonBackComp';
 
 export default function RestaurantDetailScreen() {
   const {params} = useRoute();
@@ -26,16 +27,7 @@ export default function RestaurantDetailScreen() {
         source={require('../assets/images/pizza3.jpg')}
         style={{height: 250, width: 'auto'}}
       />
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.buttonBackContainer}>
-        <Icon.ArrowLeft
-          width={50}
-          height={30}
-          strokeWidth={2}
-          stroke={'black'}
-        />
-      </TouchableOpacity>
+      <ButtonBackComp />
       <ScrollView style={styles.borderUpper}>
         {/* CONTAINER */}
         <View style={styles.container}>
@@ -120,16 +112,5 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     marginTop: -35,
     backgroundColor: COLORS.mainBg,
-  },
-  buttonBackContainer: {
-    position: 'absolute',
-    backgroundColor: 'white',
-    height: 50,
-    width: 50,
-    borderRadius: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    top: 40,
-    left: 30,
   },
 });

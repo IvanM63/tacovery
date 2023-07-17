@@ -2,6 +2,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {SIZES, SHADOWS} from '../constant';
 import * as Icon from 'react-native-feather';
+import AddMinButton from './AddMinButton';
 
 export default function FoodMenuCardView() {
   return (
@@ -23,24 +24,7 @@ export default function FoodMenuCardView() {
         <Text style={styles.textPrice}>Rp 10000</Text>
       </View>
       {/* BUTTON TO ADD TO CART */}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          flex: 2,
-        }}>
-        {/* MINUS BUTTON */}
-        <TouchableOpacity>
-          <Icon.Minus height={20} stroke={'gray'} />
-        </TouchableOpacity>
-        {/* AMOUNT  */}
-        <Text tyle={styles.addMinButton}>0</Text>
-        {/* PLUS BUTTON */}
-        <TouchableOpacity>
-          <Icon.Plus height={20} stroke={'gray'} />
-        </TouchableOpacity>
-      </View>
+      <AddMinButton flex={1.5} />
     </View>
   );
 }
@@ -63,6 +47,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   container: {
+    alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'row',
     borderRadius: 15,
