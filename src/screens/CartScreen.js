@@ -94,35 +94,49 @@ export default function CartScreen() {
           borderTopStartRadius: 30,
           borderTopEndRadius: 30,
           backgroundColor: COLORS.primary,
-          height: 158,
+          height: 170,
           width: 'auto',
           flexDirection: 'column',
         }}>
         {/* Upper Section */}
-        <View style={{flexDirection: 'row', flex: 2}}>
-          <View>
-            <Text>Subtotal</Text>
-            <Text>Delivery Fee</Text>
-            <Text>Order Total</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            flex: 2,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginHorizontal: 30,
+            marginTop: 10,
+          }}>
+          <View
+            style={{
+              flex: 1,
+              alignItems: 'flex-start',
+            }}>
+            <Text style={styles.textNormal}>Subtotal</Text>
+            <Text style={styles.textNormal}>Delivery Fee</Text>
+            <Text style={styles.textbold}>Order Total</Text>
           </View>
-          <View>
-            <Text>Subtotal</Text>
-            <Text>Delivery Fee</Text>
-            <Text>Order Total</Text>
+          <View style={{flex: 1, alignItems: 'flex-end'}}>
+            <Text style={styles.textNormal}>Rp50.000</Text>
+            <Text style={styles.textNormal}>Rp10.000</Text>
+            <Text style={styles.textbold}>Rp60.000</Text>
           </View>
         </View>
 
         {/* Button Continue Container */}
         <TouchableOpacity
+          onPress={() => navigation.navigate('OrderPreparing')}
           style={{
             flex: 1,
             backgroundColor: 'white',
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: 18,
+            borderRadius: 12,
             marginHorizontal: 30,
+            marginBottom: 15,
           }}>
-          <Text>Continue</Text>
+          <Text style={styles.textButton}>Continue</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -130,7 +144,21 @@ export default function CartScreen() {
 }
 
 const styles = StyleSheet.create({
-  cartItemListContainer: {height: 375},
+  textButton: {
+    color: 'black',
+    fontSize: SIZES.large,
+    fontWeight: '500',
+  },
+  textbold: {
+    color: 'black',
+    marginVertical: 3,
+    fontWeight: 'bold',
+  },
+  textNormal: {
+    color: 'black',
+    marginVertical: 3,
+  },
+  cartItemListContainer: {height: 362},
   addressContainer: {
     flexDirection: 'row',
     height: 111,

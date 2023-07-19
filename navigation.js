@@ -7,6 +7,9 @@ import HomeScreen from './src/screens/HomeScreen';
 import {COLORS} from './src/constant';
 import RestaurantDetailScreen from './src/screens/RestaurantDetailScreen';
 import CartScreen from './src/screens/CartScreen';
+import OrderPreparing from './src/screens/OrderPreparing';
+import DeliveryScreen from './src/screens/DeliveryScreen';
+const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
   return (
@@ -26,13 +29,32 @@ export default function Navigation() {
           component={RestaurantDetailScreen}
         />
         <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
+          options={{
+            statusBarTranslucent: true,
+            statusBarColor: 'transparent',
+          }}
           name="Cart"
           component={CartScreen}
+        />
+        <Stack.Screen
+          options={{
+            presentation: 'fullScreenModal',
+            statusBarTranslucent: true,
+            statusBarColor: 'transparent',
+          }}
+          name="OrderPreparing"
+          component={OrderPreparing}
+        />
+        <Stack.Screen
+          options={{
+            presentation: 'fullScreenModal',
+            statusBarTranslucent: true,
+            statusBarColor: 'transparent',
+          }}
+          name="DeliveryScreen"
+          component={DeliveryScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const Stack = createNativeStackNavigator();
