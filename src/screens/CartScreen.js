@@ -5,20 +5,38 @@ import {
   View,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import ButtonBackComp from '../components/ButtonBackComp';
 import {COLORS, SIZES} from '../constant';
 import * as Icon from 'react-native-feather';
-import {Image} from 'react-native-svg';
-import AddMinButton from '../components/AddMinButton';
+
 import CartListCardView from '../components/CartListCardView';
+import {useSelector} from 'react-redux';
+import {selectRestaurant} from '../slices/RestaurantSlice';
+import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
 
 export default function CartScreen() {
-  const {params} = useRoute();
+  const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
-  let item = params;
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
+  const [groupedItems, setGroupedItems] = useState({});
+
+  useEffect(() => {
+    const item = cartItems.reduce((group, item) => {
+      if (group[item.id]) {
+        group[item.id].push(item);
+      } else {
+        group[item.id] = [item];
+      }
+      return group;
+    });
+    setGroupedItems(item);
+  }, [cartItems]);
+
   return (
+    // CONTAINER
     <View style={styles.container}>
       {/* BUTTON BACK COMP */}
       <ButtonBackComp />
@@ -81,12 +99,11 @@ export default function CartScreen() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.cartItemListContainer}>
-        <CartListCardView />
-        <CartListCardView />
-        <CartListCardView />
-        <CartListCardView />
-        <CartListCardView />
-        <CartListCardView />
+        {Object.entries(groupedItems).map(([key, items]) => {
+          let dish = items[0];
+          //console.log(dish);
+          return <CartListCardView key={key} item={items} />;
+        })}
       </ScrollView>
       {/* FOOTER? */}
       <View

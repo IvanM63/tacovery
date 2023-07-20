@@ -4,7 +4,7 @@ import {SIZES, SHADOWS} from '../constant';
 import * as Icon from 'react-native-feather';
 import AddMinButton from './AddMinButton';
 
-export default function FoodMenuCardView() {
+export default function FoodMenuCardView({item}) {
   return (
     <View style={styles.container}>
       <Image
@@ -19,12 +19,12 @@ export default function FoodMenuCardView() {
           justifyContent: 'center',
           flex: 2,
         }}>
-        <Text style={styles.textTitle}>Pizza Cheese</Text>
-        <Text style={styles.textDesc}>Pizza With Cheese</Text>
-        <Text style={styles.textPrice}>Rp 10000</Text>
+        <Text style={styles.textTitle}>{item.name}</Text>
+        <Text style={styles.textDesc}>{item.description}</Text>
+        <Text style={styles.textPrice}>Rp{item.price}</Text>
       </View>
       {/* BUTTON TO ADD TO CART */}
-      <AddMinButton flex={1.5} />
+      <AddMinButton item={item} flex={1.5} />
     </View>
   );
 }

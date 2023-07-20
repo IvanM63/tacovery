@@ -7,19 +7,29 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constant';
 
 import FoodMenuCardView from '../components/FoodMenuCardView';
 import CartComp from '../components/cartcomp';
 import ButtonBackComp from '../components/ButtonBackComp';
+import {useDispatch} from 'react-redux';
+import {setRestaurant} from '../slices/RestaurantSlice';
 
 export default function RestaurantDetailScreen() {
   const {params} = useRoute();
   const navigation = useNavigation();
   let item = params;
-  //console.log('restaurant: ', item);
+  //console.log('item', item);
+  const dispacth = useDispatch();
+
+  useEffect(() => {
+    if (item && item.id) {
+      dispacth(setRestaurant({...item}));
+    }
+  });
+
   return (
     <View style={{backgroundColor: COLORS.mainBg}}>
       <CartComp />
@@ -62,12 +72,9 @@ export default function RestaurantDetailScreen() {
           {/* Restaurant Menu Text */}
           <Text style={styles.textMenuTitle}>{item.name} Food Menu</Text>
           {/* MENU LIST CARD VIEW */}
-          <FoodMenuCardView />
-          <FoodMenuCardView />
-          <FoodMenuCardView />
-          <FoodMenuCardView />
-          <FoodMenuCardView />
-          <FoodMenuCardView />
+          {item.dishes.map((item, index) => {
+            return <FoodMenuCardView item={{...item}} key={index} />;
+          })}
         </View>
       </ScrollView>
     </View>

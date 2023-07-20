@@ -3,18 +3,25 @@ import React from 'react';
 import {COLORS, SIZES} from '../constant';
 import {useNavigation} from '@react-navigation/native';
 import CartScreen from '../screens/CartScreen';
+import {useSelector} from 'react-redux';
+import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
 
 export default function CartComp() {
   const navigation = useNavigation();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
+  if (!cartItems.length) {
+    return;
+  }
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('Cart')}
       activeOpacity={0.5}
       style={styles.container}>
-      <Text style={styles.textTotal}>3</Text>
+      <Text style={styles.textTotal}>{cartItems.length}</Text>
       <Text style={styles.textItem}>Items</Text>
       <Text style={styles.textCart}>View Cart</Text>
-      <Text style={styles.textPrice}>Rp100.000</Text>
+      <Text style={styles.textPrice}>Rp{cartTotal}</Text>
     </TouchableOpacity>
   );
 }

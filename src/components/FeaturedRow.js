@@ -3,13 +3,13 @@ import React from 'react';
 import {SIZES} from '../constant';
 import RestaurantCardView from './RestaurantCardView';
 
-export default function FeaturedRow({item}) {
+export default function FeaturedRow({title, description, restaurants}) {
   return (
     <View style={styles.container}>
-      <Text style={styles.textTitle}>{item.title}</Text>
+      <Text style={styles.textTitle}>{title}</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {item.restaurants.map((restaurant, index) => {
-          return <RestaurantCardView key={index} restaurant={restaurant} />;
+        {restaurants.map((restaurant, index) => {
+          return <RestaurantCardView key={index} item={restaurant} />;
         })}
       </ScrollView>
     </View>

@@ -101,7 +101,14 @@ export default function HomeScreen() {
           showsHorizontalScrollIndicator={false}
           style={stylesFeatured.container}>
           {[featured, featured, featured].map((item, index) => {
-            return <FeaturedRow key={index} item={item} />;
+            return (
+              <FeaturedRow
+                key={index}
+                title={item.title}
+                restaurants={item.restaurants}
+                description={item.restaurants}
+              />
+            );
           })}
         </View>
       </View>

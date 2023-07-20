@@ -4,13 +4,13 @@ import {COLORS, SIZES} from '../constant';
 import {Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-export default function RestaurantCardView({restaurant}) {
+export default function RestaurantCardView({item}) {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() =>
-          navigation.navigate('RestaurantDetailScreen', {...restaurant})
+          navigation.navigate('RestaurantDetailScreen', {...item})
         }>
         <Image
           style={{
@@ -19,18 +19,18 @@ export default function RestaurantCardView({restaurant}) {
             marginHorizontal: 2,
             borderRadius: 15,
           }}
-          source={restaurant.image}
+          source={item.image}
         />
       </TouchableOpacity>
       {/* ROW TITLE */}
-      <Text style={styles.textTitle}>{restaurant.name}</Text>
+      <Text style={styles.textTitle}>{item.name}</Text>
       {/* ROW 3 */}
       <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
         <Image
           source={require('../assets/images/star.png')}
           style={{width: 10, height: 10, marginHorizontal: 2}}
         />
-        <Text style={styles.textRate}>{restaurant.reviews}</Text>
+        <Text style={styles.textRate}>{item.reviews}</Text>
         <Text style={(styles.textRate, {marginHorizontal: 6})}>•</Text>
 
         <Image

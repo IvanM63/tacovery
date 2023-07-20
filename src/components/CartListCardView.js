@@ -5,7 +5,7 @@ import AddMinButton from './AddMinButton';
 import {SIZES} from '../constant';
 import * as Icon from 'react-native-feather';
 
-export default function CartListCardView() {
+export default function CartListCardView({item}) {
   return (
     <View style={styles.cartItemListContainer}>
       {/* IMAGE  */}
@@ -15,9 +15,9 @@ export default function CartListCardView() {
       />
       {/* Desc Item Container */}
       <View style={styles.descItemContainer}>
-        <Text style={styles.textTitle}>Pizza Cheese</Text>
+        <Text style={styles.textTitle}>{item.name}</Text>
         <View style={{width: 110, marginHorizontal: -5, marginTop: 5}}>
-          <AddMinButton />
+          <AddMinButton item={item} />
         </View>
       </View>
       {/* RIght COntainer */}
@@ -34,7 +34,7 @@ export default function CartListCardView() {
         </TouchableOpacity>
 
         {/* Price */}
-        <Text style={styles.textPrice}>10.000</Text>
+        <Text style={styles.textPrice}>{item.price}</Text>
       </View>
     </View>
   );
