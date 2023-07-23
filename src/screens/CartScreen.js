@@ -22,17 +22,18 @@ export default function CartScreen() {
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
   const [groupedItems, setGroupedItems] = useState({});
-
+  //console.log(groupedItems);
   useEffect(() => {
-    const item = cartItems.reduce((group, item) => {
+    const items = cartItems.reduce((group, item) => {
       if (group[item.id]) {
         group[item.id].push(item);
       } else {
         group[item.id] = [item];
       }
       return group;
-    });
-    setGroupedItems(item);
+    }, {}); // Add {} as the initial value for the reduce function.
+    //console.log(cartItems);
+    setGroupedItems(items);
   }, [cartItems]);
 
   return (
@@ -101,8 +102,11 @@ export default function CartScreen() {
         style={styles.cartItemListContainer}>
         {Object.entries(groupedItems).map(([key, items]) => {
           let dish = items[0];
-          //console.log(dish);
-          return <CartListCardView key={key} item={items} />;
+          console.log(groupedItems);
+          return (
+            <CartListCardView key={key} item={dish} />
+            //<Text key={key}>THIS {items.length}</Text>
+          );
         })}
       </ScrollView>
       {/* FOOTER? */}
@@ -135,9 +139,9 @@ export default function CartScreen() {
             <Text style={styles.textbold}>Order Total</Text>
           </View>
           <View style={{flex: 1, alignItems: 'flex-end'}}>
-            <Text style={styles.textNormal}>Rp50.000</Text>
+            <Text style={styles.textNormal}>Rp{cartTotal}</Text>
             <Text style={styles.textNormal}>Rp10.000</Text>
-            <Text style={styles.textbold}>Rp60.000</Text>
+            <Text style={styles.textbold}>Rp{parseInt(cartTotal) + 10000}</Text>
           </View>
         </View>
 

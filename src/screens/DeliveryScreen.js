@@ -4,10 +4,19 @@ import {COLORS, SIZES, featured} from '../constant';
 import {useNavigation} from '@react-navigation/native';
 import MapView from 'react-native-maps';
 import * as Icon from 'react-native-feather';
+import {emptyCart} from '../slices/CartSlice';
+import {useDispatch} from 'react-redux';
 
 export default function DeliveryScreen() {
   const restaurant = featured.restaurants[0];
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const cancelOrder = () => {
+    dispatch(emptyCart());
+    navigation.navigate('Home');
+  };
+
   return (
     <View
       style={{
@@ -86,6 +95,7 @@ export default function DeliveryScreen() {
           </View>
           {/* PHONE ICON RIGHT */}
           <TouchableOpacity
+            onPress={cancelOrder}
             style={{
               borderRadius: 15,
               backgroundColor: 'white',

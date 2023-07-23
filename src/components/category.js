@@ -5,7 +5,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {getCategories} from '../../api';
 
 import {
   Burger,
@@ -19,6 +20,12 @@ import {
 } from '../constant';
 
 export default function Category() {
+  const [activeCategory, setActiveCategory] = useState(null);
+  // useEffect(() => {
+  //   getCategories().then(data => {
+  //     console.log(data);
+  //   });
+  // }, []);
   return (
     <ScrollView
       horizontal
