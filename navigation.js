@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -12,68 +12,101 @@ import DeliveryScreen from './src/screens/DeliveryScreen';
 import Welcome from './src/screens/Welcome';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
+import {useDispatch, useSelector} from 'react-redux';
+import {Init} from './src/redux/UserActions';
 const Stack = createNativeStackNavigator();
 
-export default function Navigation() {
+function AuthStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        statusBarStyle: 'dark',
+        statusBarColor: 'transparent',
+      }}>
+      <Stack.Screen
+        options={{statusBarTranslucent: true}}
+        name="LoginScreen"
+        component={LoginScreen}
+      />
+      <Stack.Screen
+        options={{statusBarTranslucent: true}}
+        name="RegisterScreen"
+        component={RegisterScreen}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function MyStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+        statusBarStyle: 'dark',
+        statusBarColor: 'transparent',
+      }}>
+      {/* <Stack.Screen
+        options={{statusBarTranslucent: true}}
+        name="WelcomeScreen"
+        component={Welcome}
+      /> */}
+
+      <Stack.Screen
+        options={{statusBarTranslucent: true}}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Stack.Screen
+        options={{statusBarTranslucent: true}}
+        name="RestaurantDetailScreen"
+        component={RestaurantDetailScreen}
+      />
+      <Stack.Screen
+        options={{
+          statusBarTranslucent: true,
+        }}
+        name="Cart"
+        component={CartScreen}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'fullScreenModal',
+          statusBarTranslucent: true,
+        }}
+        name="OrderPreparing"
+        component={OrderPreparing}
+      />
+      <Stack.Screen
+        options={{
+          presentation: 'fullScreenModal',
+          statusBarTranslucent: true,
+        }}
+        name="DeliveryScreen"
+        component={DeliveryScreen}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function RootNavigation() {
+  const token = useSelector(state => state.UserReducers.authToken);
+  const user = useSelector(state => state.UserReducers.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(Init());
+  });
+
+  console.log('user', user);
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="WelcomeScreen"
-        screenOptions={{
-          headerShown: false,
-        }}>
-        <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
-          name="WelcomeScreen"
-          component={Welcome}
-        />
-        <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
-          name="LoginScreen"
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
-          name="RegisterScreen"
-          component={RegisterScreen}
-        />
-        <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
-          name="Home"
-          component={HomeScreen}
-        />
-        <Stack.Screen
-          options={{statusBarTranslucent: true, statusBarColor: 'transparent'}}
-          name="RestaurantDetailScreen"
-          component={RestaurantDetailScreen}
-        />
-        <Stack.Screen
-          options={{
-            statusBarTranslucent: true,
-            statusBarColor: 'transparent',
-          }}
-          name="Cart"
-          component={CartScreen}
-        />
-        <Stack.Screen
-          options={{
-            presentation: 'fullScreenModal',
-            statusBarTranslucent: true,
-            statusBarColor: 'transparent',
-          }}
-          name="OrderPreparing"
-          component={OrderPreparing}
-        />
-        <Stack.Screen
-          options={{
-            presentation: 'fullScreenModal',
-            statusBarTranslucent: true,
-            statusBarColor: 'transparent',
-          }}
-          name="DeliveryScreen"
-          component={DeliveryScreen}
-        />
-      </Stack.Navigator>
+      {token === null ? <AuthStack /> : <MyStack />}
     </NavigationContainer>
   );
+}
+
+export default function Navigation() {
+  return <RootNavigation />;
 }

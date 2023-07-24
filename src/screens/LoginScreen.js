@@ -1,7 +1,7 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import {COLORS, SIZES} from '../constant';
-import {Image, TouchableOpacity} from 'react-native';
+import {Image, TouchableOpacity, ActivityIndicator} from 'react-native';
 import * as Icon from 'react-native-feather';
 import {co} from '../../delivery-app/dist/static/sanity-7d30f627';
 
@@ -9,10 +9,24 @@ import Google from '../assets/icons/google_icon.png';
 import Facebook from '../assets/icons/facebook_icon.png';
 import {useNavigation} from '@react-navigation/native';
 
+import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import {useDispatch, useSelector} from 'react-redux';
+import {Login} from '../redux/UserActions';
+
 export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const message = useSelector(state => state.UserReducers.message);
+  console.log(message);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const submit = () => {
+    dispatch(Login(email, password));
+  };
+
   return (
-    <View>
+    <ScrollView>
       <View
         style={{
           flexDirection: 'column',
@@ -69,6 +83,8 @@ export default function LoginScreen() {
           <Text style={loginFormStyle.textSubTitle}>Email</Text>
           <TextInput
             style={loginFormStyle.loginInput}
+            value={email}
+            onChangeText={setEmail}
             placeholder="example@gmail.com"
           />
           <Text sec style={loginFormStyle.textSubTitle}>
@@ -77,9 +93,23 @@ export default function LoginScreen() {
           <TextInput
             secureTextEntry={true}
             style={loginFormStyle.loginInput}
+            value={password}
+            onChangeText={text => setPassword(text)}
             placeholder="Password"
           />
-          <TouchableOpacity style={loginFormStyle.loginButton}>
+          {/* MESSAGE TEXT */}
+          {message.message ? (
+            <Text
+              style={
+                message.messageType === 'SUCCESS'
+                  ? loginFormStyle.messageTextGreen
+                  : loginFormStyle.messageTextRed
+              }>
+              {message.message}
+            </Text>
+          ) : null}
+
+          <TouchableOpacity onPress={submit} style={loginFormStyle.loginButton}>
             <Text style={loginFormStyle.loginButtonText}>Login</Text>
           </TouchableOpacity>
           <View
@@ -97,7 +127,7 @@ export default function LoginScreen() {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -138,6 +168,18 @@ const loginFormStyle = StyleSheet.create({
   },
   loginText: {
     color: 'gray',
+    textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 15,
+  },
+  messageTextRed: {
+    color: 'red',
+    textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 15,
+  },
+  messageTextGreen: {
+    color: 'red',
     textAlign: 'center',
     marginVertical: 10,
     fontSize: 15,

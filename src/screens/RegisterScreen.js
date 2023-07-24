@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES} from '../constant';
 import {Image, TouchableOpacity} from 'react-native';
@@ -9,10 +9,12 @@ import Google from '../assets/icons/google_icon.png';
 import Facebook from '../assets/icons/facebook_icon.png';
 import {useNavigation} from '@react-navigation/native';
 
+import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+
 export default function LoginScreen() {
   const navigation = useNavigation();
   return (
-    <View>
+    <KeyboardAvoidingWrapper>
       <View
         style={{
           flexDirection: 'column',
@@ -87,7 +89,7 @@ export default function LoginScreen() {
           </View>
         </View>
       </View>
-    </View>
+    </KeyboardAvoidingWrapper>
   );
 }
 
