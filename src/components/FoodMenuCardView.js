@@ -8,7 +8,7 @@ export default function FoodMenuCardView({item}) {
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/images/pizza.jpg')}
+        source={{uri: `http://192.168.100.5:3000${item.image}`}}
         style={{height: 90, width: 90, borderRadius: 15, flex: 1.6}}
       />
       {/* DESC FOOD */}

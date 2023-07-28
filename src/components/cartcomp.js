@@ -4,7 +4,8 @@ import {COLORS, SIZES} from '../constant';
 import {useNavigation} from '@react-navigation/native';
 import CartScreen from '../screens/CartScreen';
 import {useSelector} from 'react-redux';
-import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
+import {selectCartItems, selectCartTotal} from '../redux/CartActions';
+//import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
 
 export default function CartComp() {
   const navigation = useNavigation();

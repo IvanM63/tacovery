@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -38,21 +38,31 @@ function AuthStack() {
   );
 }
 
-function MyStack() {
+function WelcomeStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Home"
       screenOptions={{
         headerShown: false,
         statusBarStyle: 'dark',
         statusBarColor: 'transparent',
       }}>
-      {/* <Stack.Screen
+      <Stack.Screen
         options={{statusBarTranslucent: true}}
-        name="WelcomeScreen"
+        name="Welcome"
         component={Welcome}
-      /> */}
+      />
+    </Stack.Navigator>
+  );
+}
 
+function MyStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        statusBarStyle: 'dark',
+        statusBarColor: 'transparent',
+      }}>
       <Stack.Screen
         options={{statusBarTranslucent: true}}
         name="Home"
@@ -91,18 +101,31 @@ function MyStack() {
 }
 
 function RootNavigation() {
+  const [isReady, setIsReady] = useState(true);
   const token = useSelector(state => state.UserReducers.authToken);
   const user = useSelector(state => state.UserReducers.user);
   const dispatch = useDispatch();
 
+  const init = async () => {
+    await dispatch(Init());
+    setTimeout(() => {
+      setIsReady(false);
+    }, 1000);
+  };
+
   useEffect(() => {
-    dispatch(Init());
+    init();
   });
 
-  console.log('user', user);
   return (
     <NavigationContainer>
-      {token === null ? <AuthStack /> : <MyStack />}
+      {isReady === true ? (
+        <WelcomeStack />
+      ) : token === null ? (
+        <AuthStack />
+      ) : (
+        <MyStack />
+      )}
     </NavigationContainer>
   );
 }

@@ -11,18 +11,23 @@ import {useNavigation} from '@react-navigation/native';
 
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import {useDispatch, useSelector} from 'react-redux';
-import {Login} from '../redux/UserActions';
+import {Login, setMessage} from '../redux/UserActions';
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const message = useSelector(state => state.UserReducers.message);
-  console.log(message);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const submit = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const message = useSelector(state => state.UserReducers.message);
+
+  const handleLogin = () => {
     dispatch(Login(email, password));
+  };
+
+  const handleMessage = (message, messageType) => {
+    dispatch(setMessage({message: message, messageType: messageType}));
   };
 
   return (
@@ -109,7 +114,9 @@ export default function LoginScreen() {
             </Text>
           ) : null}
 
-          <TouchableOpacity onPress={submit} style={loginFormStyle.loginButton}>
+          <TouchableOpacity
+            onPress={handleLogin}
+            style={loginFormStyle.loginButton}>
             <Text style={loginFormStyle.loginButtonText}>Login</Text>
           </TouchableOpacity>
           <View
@@ -119,7 +126,10 @@ export default function LoginScreen() {
             }}>
             <Text>Don't have an account?</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('RegisterScreen')}>
+              onPress={() => {
+                handleMessage(null, null);
+                navigation.navigate('RegisterScreen');
+              }}>
               <Text style={{marginHorizontal: 5, color: COLORS.primaryDarker}}>
                 Register
               </Text>

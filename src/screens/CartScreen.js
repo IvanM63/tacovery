@@ -13,11 +13,11 @@ import * as Icon from 'react-native-feather';
 
 import CartListCardView from '../components/CartListCardView';
 import {useSelector} from 'react-redux';
-import {selectRestaurant} from '../slices/RestaurantSlice';
-import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
+
+import {selectCartItems, selectCartTotal} from '../redux/CartActions';
 
 export default function CartScreen() {
-  const restaurant = useSelector(selectRestaurant);
+  //const restaurant = useSelector(selectRestaurant);
   const navigation = useNavigation();
   const cartItems = useSelector(selectCartItems);
   const cartTotal = useSelector(selectCartTotal);
@@ -25,10 +25,10 @@ export default function CartScreen() {
   //console.log(groupedItems);
   useEffect(() => {
     const items = cartItems.reduce((group, item) => {
-      if (group[item.id]) {
-        group[item.id].push(item);
+      if (group[item._id]) {
+        group[item._id].push(item);
       } else {
-        group[item.id] = [item];
+        group[item._id] = [item];
       }
       return group;
     }, {}); // Add {} as the initial value for the reduce function.

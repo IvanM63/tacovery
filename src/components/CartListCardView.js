@@ -11,7 +11,7 @@ export default function CartListCardView({item}) {
       {/* IMAGE  */}
       <Image
         style={{height: 80, width: 70, borderRadius: 15, flex: 1.5, margin: 10}}
-        source={require('../assets/images/pizzaMenu.jpg')}
+        source={{uri: `http://192.168.100.5:3000${item.image}`}}
       />
       {/* Desc Item Container */}
       <View style={styles.descItemContainer}>

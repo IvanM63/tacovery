@@ -7,18 +7,18 @@ import {
   addToCart,
   removeFromCart,
   selectCartItemsById,
-} from '../slices/CartSlice';
+} from '../redux/CartActions';
 
 export default function AddMinButton({item}) {
   const dispatch = useDispatch();
 
-  const totalItems = useSelector(state => selectCartItemsById(state, item.id));
+  const totalItems = useSelector(state => selectCartItemsById(state, item._id));
 
   const handleIncrease = () => {
     dispatch(addToCart(item));
   };
   const handleDecrease = () => {
-    dispatch(removeFromCart({id: item.id}));
+    dispatch(removeFromCart({_id: item._id}));
   };
   return (
     <View
@@ -26,7 +26,7 @@ export default function AddMinButton({item}) {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        flex: 3,
+        flex: 1.5,
         backgroundColor: '#F8F8FA',
         borderRadius: 15,
         height: 40,

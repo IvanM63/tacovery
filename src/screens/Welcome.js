@@ -3,14 +3,6 @@ import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
 export default function Welcome() {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    setTimeout(() => {
-      navigation.navigate('LoginScreen');
-    }, 1000);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   return (
     <View
       style={{

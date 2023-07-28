@@ -19,11 +19,13 @@ export default function RestaurantCardView({item}) {
             marginHorizontal: 2,
             borderRadius: 15,
           }}
-          source={item.image}
+          source={{uri: `http://192.168.100.5:3000${item.image}`}}
         />
       </TouchableOpacity>
       {/* ROW TITLE */}
-      <Text style={styles.textTitle}>{item.name}</Text>
+      <Text numberOfLines={2} style={styles.textTitle}>
+        {item.name}
+      </Text>
       {/* ROW 3 */}
       <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
         <Image
@@ -48,6 +50,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginVertical: 10,
     marginLeft: 30,
+    width: 120,
   },
   textTitle: {
     flex: 1,

@@ -11,30 +11,30 @@ import React, {useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constant';
 
-import FoodMenuCardView from '../components/FoodMenuCardView';
 import CartComp from '../components/cartcomp';
 import ButtonBackComp from '../components/ButtonBackComp';
-import {useDispatch} from 'react-redux';
-import {setRestaurant} from '../slices/RestaurantSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {setFoodsRestaurant, setRestaurant} from '../redux/RestaurantsActions';
+import FoodMenuCardView from '../components/FoodMenuCardView';
 
 export default function RestaurantDetailScreen() {
   const {params} = useRoute();
   const navigation = useNavigation();
   let item = params;
-  //console.log('item', item);
   const dispacth = useDispatch();
-
+  const foodMenu = useSelector(state => state.RestaurantsReducers.FoodMenu);
   useEffect(() => {
-    if (item && item.id) {
+    if (item) {
       dispacth(setRestaurant({...item}));
     }
+    dispacth(setFoodsRestaurant(item._id));
   });
 
   return (
     <View style={{backgroundColor: COLORS.mainBg}}>
       <CartComp />
       <Image
-        source={require('../assets/images/pizza3.jpg')}
+        source={{uri: `http://192.168.100.5:3000${item.image}`}}
         style={{height: 250, width: 'auto'}}
       />
       <ButtonBackComp />
@@ -64,15 +64,11 @@ export default function RestaurantDetailScreen() {
           </View>
 
           {/* TEXT DESC RESTAURANT */}
-          <Text style={styles.textDesc}>
-            Healthy eating means eating a variety of foods that give you the
-            nutrients you need to maintain your health, feel good, and have
-            energy.
-          </Text>
+          <Text style={styles.textDesc}>{item.description}</Text>
           {/* Restaurant Menu Text */}
           <Text style={styles.textMenuTitle}>{item.name} Food Menu</Text>
           {/* MENU LIST CARD VIEW */}
-          {item.dishes.map((item, index) => {
+          {foodMenu.map((item, index) => {
             return <FoodMenuCardView item={{...item}} key={index} />;
           })}
         </View>

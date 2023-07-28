@@ -10,6 +10,29 @@ export const Init = () => {
     }
   };
 };
+
+export const Register = userRegister => {
+  return async dispatch => {
+    try {
+      const res = await axios.post('http://192.168.100.5:3000/user/signup', {
+        name: userRegister.name,
+        email: userRegister.email,
+        password: userRegister.password,
+        dateOfBirth: userRegister.dateOfBirth,
+      });
+      if (res.data.status === 'SUCCESS') {
+        console.log('Sukses Register', res.data);
+        dispatch({type: 'REGISTER_SUCCESS', payload: res.data});
+      } else {
+        console.log('Gagal Register', res.data.message);
+        dispatch({type: 'REGISTER_FAILED', payload: res.data});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const Login = (email, password) => {
   return async dispatch => {
     try {
@@ -28,6 +51,13 @@ export const Login = (email, password) => {
     } catch (error) {
       console.log(error.JSON());
     }
+  };
+};
+
+export const setMessage = message => {
+  return {
+    type: 'SET_MESSAGE',
+    payload: message,
   };
 };
 

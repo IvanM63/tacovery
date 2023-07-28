@@ -4,12 +4,16 @@ import {
   createStore,
   applyMiddleware,
 } from '@reduxjs/toolkit';
-import CartSlice from '../slices/CartSlice';
-import RestaurantSlice from '../slices/RestaurantSlice';
 import UserReducers from './UserReducers';
+import RestaurantsReducers from './RestaurantsReducers';
+import CartReducers from './CartReducers';
 import thunk from 'redux-thunk';
 
-const RootReducers = combineReducers({UserReducers});
+const RootReducers = combineReducers({
+  UserReducers,
+  RestaurantsReducers,
+  CartReducers,
+});
 
 export const store = createStore(RootReducers, applyMiddleware(thunk));
 

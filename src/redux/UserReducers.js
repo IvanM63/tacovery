@@ -26,6 +26,30 @@ export default (state = initialState, action) => {
         messageType: action.payload.status,
       },
     };
+  } else if (action.type === 'REGISTER_SUCCESS') {
+    return {
+      ...state,
+      message: {
+        message: action.payload.message,
+        messageType: action.payload.status,
+      },
+    };
+  } else if (action.type === 'REGISTER_FAILED') {
+    return {
+      ...state,
+      message: {
+        message: action.payload.message,
+        messageType: action.payload.status,
+      },
+    };
+  } else if (action.type === 'SET_MESSAGE') {
+    return {
+      ...state,
+      message: {
+        message: action.payload.message,
+        messageType: action.payload.messageType,
+      },
+    };
   }
 
   return state;

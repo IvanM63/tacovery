@@ -9,14 +9,25 @@ import {
   View,
 } from 'react-native';
 
-import React from 'react';
-import {COLORS, SIZES, Burger, featured} from '../constant';
+import React, {useEffect} from 'react';
+import {COLORS, SIZES} from '../constant';
 import * as Icon from 'react-native-feather';
 import Category from '../components/category';
 import FeaturedRow from '../components/FeaturedRow';
 import {Image} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getAllFeatured} from '../redux/RestaurantsActions';
 
 export default function HomeScreen() {
+  const dispatch = useDispatch();
+  const featured = useSelector(state => state.RestaurantsReducers.Featured);
+  //console.log('Restaurants', restaurants);
+  useEffect(() => {
+    if (featured.length === 0) {
+      dispatch(getAllFeatured());
+    }
+    //console.log('Featured Length', featured.restaurants.length);
+  });
   return (
     <ScrollView>
       <View style={{flexDirection: 'column'}}>
@@ -100,11 +111,11 @@ export default function HomeScreen() {
         <View
           showsHorizontalScrollIndicator={false}
           style={stylesFeatured.container}>
-          {[featured, featured, featured].map((item, index) => {
+          {featured.map((item, index) => {
             return (
               <FeaturedRow
                 key={index}
-                title={item.title}
+                title={item.name}
                 restaurants={item.restaurants}
                 description={item.restaurants}
               />

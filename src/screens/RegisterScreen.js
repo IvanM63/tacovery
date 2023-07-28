@@ -1,5 +1,12 @@
-import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {COLORS, SIZES} from '../constant';
 import {Image, TouchableOpacity} from 'react-native';
 import * as Icon from 'react-native-feather';
@@ -9,10 +16,73 @@ import Google from '../assets/icons/google_icon.png';
 import Facebook from '../assets/icons/facebook_icon.png';
 import {useNavigation} from '@react-navigation/native';
 
+import DateTimePicker from '@react-native-community/datetimepicker';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
+import {Register, setMessage} from '../redux/UserActions';
+import {useDispatch, useSelector} from 'react-redux';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const message = useSelector(state => state.UserReducers.message);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  //date configuration
+  const [date, setDate] = useState(new Date(2001, 0, 1));
+  const [show, setShow] = useState(false);
+  //Actual date
+  const [realDate, setRealDate] = useState();
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(false);
+    setDate(currentDate);
+    setRealDate(currentDate);
+  };
+
+  const showMode = currentMode => {
+    setShow(true);
+  };
+
+  const showDatepicker = () => {
+    showMode(true);
+  };
+
+  const handleMessage = (message, messageType) => {
+    dispatch(setMessage({message: message, messageType: messageType}));
+  };
+
+  const handleRegister = () => {
+    setIsSubmitting(true);
+    if (
+      name === '' ||
+      email === '' ||
+      realDate === '' ||
+      password === '' ||
+      confirmPassword === ''
+    ) {
+      handleMessage('Please fill all fields', 'FAILED');
+      setIsSubmitting(false);
+    } else if (password !== confirmPassword) {
+      handleMessage('Password does not match', 'FAILED');
+      setIsSubmitting(false);
+    } else {
+      const userRegister = {
+        name: name,
+        email: email,
+        dateOfBirth: realDate,
+        password: password,
+      };
+      //dispatch for register
+      dispatch(Register(userRegister));
+      setIsSubmitting(false);
+    }
+  };
   return (
     <KeyboardAvoidingWrapper>
       <View
@@ -30,26 +100,46 @@ export default function LoginScreen() {
           {/* FUll NAME */}
           <Text style={loginFormStyle.textSubTitle}>Full Name</Text>
           <TextInput
+            value={name}
+            onChangeText={setName}
             style={loginFormStyle.loginInput}
             placeholder="Full Name"
           />
           {/* EMAIL */}
           <Text style={loginFormStyle.textSubTitle}>Email</Text>
           <TextInput
+            value={email}
+            onChangeText={setEmail}
             style={loginFormStyle.loginInput}
             placeholder="example@gmail.com"
           />
           {/* DATE OF BIRTH */}
           <Text style={loginFormStyle.textSubTitle}>Date of Birth</Text>
-          <TextInput
-            style={loginFormStyle.loginInput}
-            placeholder="DD/MM/YYYY"
-          />
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              onChange={onChange}
+            />
+          )}
+          <TouchableOpacity onPress={showDatepicker}>
+            <TextInput
+              value={realDate ? realDate.toDateString() : ''}
+              style={loginFormStyle.loginInput}
+              placeholder="DD/MM/YYYY"
+              editable={false}
+              showDatepicker={showDatepicker}
+            />
+          </TouchableOpacity>
           {/* PASSWORD */}
           <Text sec style={loginFormStyle.textSubTitle}>
             Password
           </Text>
           <TextInput
+            value={password}
+            onChangeText={setPassword}
             secureTextEntry={true}
             style={loginFormStyle.loginInput}
             placeholder="Password"
@@ -57,6 +147,8 @@ export default function LoginScreen() {
           {/* CONFIRM PASSWORD */}
           <Text style={loginFormStyle.textSubTitle}>Confirm Password</Text>
           <TextInput
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
             secureTextEntry={true}
             style={loginFormStyle.loginInput}
             placeholder="Confirm Password"
@@ -70,10 +162,32 @@ export default function LoginScreen() {
               <Image source={Facebook} />
             </TouchableOpacity>
           </View>
+          {/* MESSAGE TEXT */}
+          {message.message ? (
+            <Text
+              style={
+                message.messageType === 'SUCCESS'
+                  ? loginFormStyle.messageTextGreen
+                  : loginFormStyle.messageTextRed
+              }>
+              {message.message}
+            </Text>
+          ) : null}
           {/* REGISTER BUTTON */}
-          <TouchableOpacity style={loginFormStyle.loginButton}>
-            <Text style={loginFormStyle.loginButtonText}>Login</Text>
-          </TouchableOpacity>
+          {!isSubmitting && (
+            <TouchableOpacity
+              onPress={handleRegister}
+              style={loginFormStyle.loginButton}>
+              <Text style={loginFormStyle.loginButtonText}>Register</Text>
+            </TouchableOpacity>
+          )}
+          {isSubmitting && (
+            <TouchableOpacity
+              onPress={handleRegister}
+              style={loginFormStyle.loginButton}>
+              <ActivityIndicator size="large" color="white" />
+            </TouchableOpacity>
+          )}
           <View
             style={{
               flexDirection: 'row',
@@ -81,7 +195,10 @@ export default function LoginScreen() {
             }}>
             <Text>I'm already a member</Text>
             <TouchableOpacity
-              onPress={() => navigation.navigate('LoginScreen')}>
+              onPress={() => {
+                handleMessage(null, null);
+                navigation.navigate('LoginScreen');
+              }}>
               <Text style={{marginHorizontal: 5, color: COLORS.primaryDarker}}>
                 Login
               </Text>
@@ -113,6 +230,7 @@ const loginFormStyle = StyleSheet.create({
     paddingHorizontal: 20,
     marginVertical: 10,
     fontSize: 14,
+    color: 'black',
   },
   loginButton: {
     backgroundColor: COLORS.primary,
@@ -132,6 +250,18 @@ const loginFormStyle = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     marginVertical: 10,
+    fontSize: 15,
+  },
+  messageTextRed: {
+    color: 'red',
+    textAlign: 'center',
+    marginVertical: 5,
+    fontSize: 15,
+  },
+  messageTextGreen: {
+    color: 'green',
+    textAlign: 'center',
+    marginVertical: 5,
     fontSize: 15,
   },
 });
