@@ -9,13 +9,17 @@ import {
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import {COLORS, SIZES} from '../constant';
+import {COLORS, SIZES} from '../../constant';
 
-import CartComp from '../components/cartcomp';
-import ButtonBackComp from '../components/ButtonBackComp';
+import CartComp from './cartcomp';
+import ButtonBackComp from '../../components/ButtonBackComp';
 import {useDispatch, useSelector} from 'react-redux';
-import {setFoodsRestaurant, setRestaurant} from '../redux/RestaurantsActions';
-import FoodMenuCardView from '../components/FoodMenuCardView';
+import {
+  setFoodsRestaurant,
+  setRestaurant,
+} from '../../redux/Restaurants/RestaurantsActions';
+import FoodMenuCardView from './FoodMenuCardView';
+import {BASE_URI} from '../../constant';
 
 export default function RestaurantDetailScreen() {
   const {params} = useRoute();
@@ -34,7 +38,7 @@ export default function RestaurantDetailScreen() {
     <View style={{backgroundColor: COLORS.mainBg}}>
       <CartComp />
       <Image
-        source={{uri: `http://192.168.100.5:3000${item.image}`}}
+        source={{uri: `${BASE_URI}${item.image}`}}
         style={{height: 250, width: 'auto'}}
       />
       <ButtonBackComp />
@@ -50,14 +54,14 @@ export default function RestaurantDetailScreen() {
               marginVertical: 5,
             }}>
             <Image
-              source={require('../assets/images/star.png')}
+              source={require('../../assets/images/star.png')}
               style={{width: 15, height: 15, marginHorizontal: 2}}
             />
             <Text style={styles.textRate}>{item.reviews}</Text>
             <Text style={(styles.textRate, {marginHorizontal: 6})}>•</Text>
 
             <Image
-              source={require('../assets/images/time.png')}
+              source={require('../../assets/images/time.png')}
               style={{width: 15, height: 15, marginHorizontal: 5}}
             />
             <Text style={styles.textDuration}>25 min</Text>

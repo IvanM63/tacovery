@@ -1,10 +1,10 @@
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import {COLORS, SIZES} from '../constant';
+import {COLORS, SIZES} from '../../constant';
 import {useNavigation} from '@react-navigation/native';
-import CartScreen from '../screens/CartScreen';
+import CartScreen from '../Cart/CartScreen';
 import {useSelector} from 'react-redux';
-import {selectCartItems, selectCartTotal} from '../redux/CartActions';
+import {selectCartItems, selectCartTotal} from '../../redux/Cart/CartActions';
 //import {selectCartItems, selectCartTotal} from '../slices/CartSlice';
 
 export default function CartComp() {

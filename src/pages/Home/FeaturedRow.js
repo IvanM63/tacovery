@@ -1,6 +1,6 @@
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {SIZES} from '../constant';
+import {SIZES} from '../../constant';
 import RestaurantCardView from './RestaurantCardView';
 
 export default function FeaturedRow({title, description, restaurants}) {

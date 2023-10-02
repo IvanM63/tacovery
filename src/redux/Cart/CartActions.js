@@ -1,7 +1,7 @@
 //Add item to cart
 export const addToCart = item => {
   return async dispatch => {
-    console.log('item', item);
+    //console.log('item', item);
     dispatch({type: 'ADD_TO_CART', payload: item});
   };
 };
@@ -16,7 +16,7 @@ export const removeFromCart = item => {
 export const selectCartItems = state => state.CartReducers.items;
 
 export const selectCartItemsById = (state, id) =>
-  state.CartReducers.items.filter(item => item._id === id);
+  state.CartReducers.items.filter(item => item._id == id);
 
 export const selectCartTotal = state => {
   let total = 0;

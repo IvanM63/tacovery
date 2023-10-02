@@ -6,7 +6,7 @@ import {
   View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {getCategories} from '../../api';
+import {getCategories} from '../../../api';
 
 import {
   Burger,
@@ -17,7 +17,7 @@ import {
   Pizza,
   Taco,
   categories,
-} from '../constant';
+} from '../../constant';
 
 export default function Category() {
   const [activeCategory, setActiveCategory] = useState(null);

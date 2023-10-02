@@ -7,18 +7,18 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {COLORS, SIZES} from '../constant';
+import {COLORS, SIZES} from '../../constant';
 import {Image, TouchableOpacity} from 'react-native';
 import * as Icon from 'react-native-feather';
-import {co} from '../../delivery-app/dist/static/sanity-7d30f627';
+import {co} from '../../../delivery-app/dist/static/sanity-7d30f627';
 
-import Google from '../assets/icons/google_icon.png';
-import Facebook from '../assets/icons/facebook_icon.png';
+import Google from '../../assets/icons/google_icon.png';
+import Facebook from '../../assets/icons/facebook_icon.png';
 import {useNavigation} from '@react-navigation/native';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
-import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
-import {Register, setMessage} from '../redux/UserActions';
+import KeyboardAvoidingWrapper from '../../components/KeyboardAvoidingWrapper';
+import {Register, setMessage} from '../../redux/User/UserActions';
 import {useDispatch, useSelector} from 'react-redux';
 
 export default function LoginScreen() {

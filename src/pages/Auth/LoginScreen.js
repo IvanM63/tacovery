@@ -1,17 +1,14 @@
 import {StyleSheet, Text, TextInput, View, ScrollView} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {COLORS, SIZES} from '../constant';
+import {COLORS, SIZES} from '../../constant';
 import {Image, TouchableOpacity, ActivityIndicator} from 'react-native';
-import * as Icon from 'react-native-feather';
-import {co} from '../../delivery-app/dist/static/sanity-7d30f627';
 
-import Google from '../assets/icons/google_icon.png';
-import Facebook from '../assets/icons/facebook_icon.png';
+import Google from '../../assets/icons/google_icon.png';
+import Facebook from '../../assets/icons/facebook_icon.png';
 import {useNavigation} from '@react-navigation/native';
 
-import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import {useDispatch, useSelector} from 'react-redux';
-import {Login, setMessage} from '../redux/UserActions';
+import {Login, setMessage} from '../../redux/User/UserActions';
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -47,7 +44,7 @@ export default function LoginScreen() {
             position: 'absolute',
           }}>
           <Image
-            source={require('../assets/images/FoodDoodle.png')}
+            source={require('../../assets/images/FoodDoodle.png')}
             style={{
               borderBottomRightRadius: 60,
               borderBottomLeftRadius: 60,

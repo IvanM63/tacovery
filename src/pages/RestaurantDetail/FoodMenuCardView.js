@@ -1,14 +1,15 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {SIZES, SHADOWS} from '../constant';
+import {SIZES, SHADOWS} from '../../constant';
 import * as Icon from 'react-native-feather';
-import AddMinButton from './AddMinButton';
+import AddMinButton from '../../components/AddMinButton';
+import {BASE_URI} from '../../constant';
 
 export default function FoodMenuCardView({item}) {
   return (
     <View style={styles.container}>
       <Image
-        source={{uri: `http://192.168.100.5:3000${item.image}`}}
+        source={{uri: `${BASE_URI}${item.image}`}}
         style={{height: 90, width: 90, borderRadius: 15, flex: 1.6}}
       />
       {/* DESC FOOD */}

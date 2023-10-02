@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {getData, storeData} from '../util/AsyncStorage';
+import {getData, storeData} from '../../util/AsyncStorage';
+import {BASE_URI} from '../../constant';
 
 export const Init = () => {
   return async dispatch => {
@@ -14,7 +15,7 @@ export const Init = () => {
 export const Register = userRegister => {
   return async dispatch => {
     try {
-      const res = await axios.post('http://192.168.100.5:3000/user/signup', {
+      const res = await axios.post(`${BASE_URI}/user/signup`, {
         name: userRegister.name,
         email: userRegister.email,
         password: userRegister.password,
@@ -36,7 +37,7 @@ export const Register = userRegister => {
 export const Login = (email, password) => {
   return async dispatch => {
     try {
-      const res = await axios.post('http://192.168.100.5:3000/user/signin', {
+      const res = await axios.post(`${BASE_URI}/user/signin`, {
         email,
         password,
       });

@@ -7,14 +7,14 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
-import ButtonBackComp from '../components/ButtonBackComp';
-import {COLORS, SIZES} from '../constant';
+import ButtonBackComp from '../../components/ButtonBackComp';
+import {COLORS, SIZES} from '../../constant';
 import * as Icon from 'react-native-feather';
 
-import CartListCardView from '../components/CartListCardView';
+import CartListCardView from './CartListCardView';
 import {useSelector} from 'react-redux';
 
-import {selectCartItems, selectCartTotal} from '../redux/CartActions';
+import {selectCartItems, selectCartTotal} from '../../redux/Cart/CartActions';
 
 export default function CartScreen() {
   //const restaurant = useSelector(selectRestaurant);

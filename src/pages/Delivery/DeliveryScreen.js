@@ -1,10 +1,10 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {COLORS, SIZES, featured} from '../constant';
+import {COLORS, SIZES, featured} from '../../constant';
 import {useNavigation} from '@react-navigation/native';
 import MapView from 'react-native-maps';
 import * as Icon from 'react-native-feather';
-import {emptyCart} from '../slices/CartSlice';
+import {emptyCart} from '../../slices/CartSlice';
 import {useDispatch} from 'react-redux';
 
 export default function DeliveryScreen() {

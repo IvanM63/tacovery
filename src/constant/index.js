@@ -10,6 +10,8 @@ import Taco from '../assets/icons/taco.svg';
 
 import {COLORS, FONT, SIZES, SHADOWS} from './theme';
 
+import {BASE_URI} from './api';
+
 export {
   COLORS,
   FONT,
@@ -22,6 +24,7 @@ export {
   Meat,
   Pizza,
   Taco,
+  BASE_URI,
 };
 
 export const categories = [

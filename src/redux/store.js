@@ -4,9 +4,11 @@ import {
   createStore,
   applyMiddleware,
 } from '@reduxjs/toolkit';
-import UserReducers from './UserReducers';
-import RestaurantsReducers from './RestaurantsReducers';
-import CartReducers from './CartReducers';
+
+import UserReducers from './User/UserReducers';
+import RestaurantsReducers from './Restaurants/RestaurantsReducers';
+import CartReducers from './Cart/CartReducers';
+
 import thunk from 'redux-thunk';
 
 const RootReducers = combineReducers({

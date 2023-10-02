@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {BASE_URI} from '../../constant';
 
 //Set Restaurant
 export const setRestaurant = restaurant => {
@@ -16,9 +17,7 @@ export const setRestaurant = restaurant => {
 export const setFoodsRestaurant = id => {
   return async dispatch => {
     try {
-      const res = await axios.get(
-        `http://192.168.100.5:3000/food/restaurant/${id}`,
-      );
+      const res = await axios.get(`${BASE_URI}/food/restaurant/${id}`);
       if (res.data.status === 'SUCCESS') {
         //console.log('Sukses get Food Restaurant', res.data.data);
         dispatch({type: 'SET_FOOD_RESTAURANT', payload: res.data.data});
@@ -36,9 +35,7 @@ export const setFoodsRestaurant = id => {
 export const getFeaturedRestaurant = name => {
   return async dispatch => {
     try {
-      const res = await axios.get(
-        `http://192.168.100.5:3000/featuredRestaurant/${name}`,
-      );
+      const res = await axios.get(`${BASE_URI}/featuredRestaurant/${name}`);
       if (res.data.status === 'SUCCESS') {
         console.log('Sukses get Featured Restaurant', res.data.data[0]);
         dispatch({type: 'SET_FEATURED_RESTAURANT', payload: res.data.data[0]});
@@ -56,9 +53,7 @@ export const getFeaturedRestaurant = name => {
 export const getAllFeatured = () => {
   return async dispatch => {
     try {
-      const res = await axios.get(
-        'http://192.168.100.5:3000/featuredRestaurant/',
-      );
+      const res = await axios.get(`${BASE_URI}/featuredRestaurant/`);
       if (res.data.status === 'SUCCESS') {
         console.log('Sukses get All Featured Restaurant', res.data.data);
         dispatch({type: 'SET_FEATURED', payload: res.data.data});

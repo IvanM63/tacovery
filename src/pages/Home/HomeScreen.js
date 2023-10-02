@@ -10,13 +10,13 @@ import {
 } from 'react-native';
 
 import React, {useEffect} from 'react';
-import {COLORS, SIZES} from '../constant';
+import {COLORS, SIZES} from '../../constant';
 import * as Icon from 'react-native-feather';
-import Category from '../components/category';
-import FeaturedRow from '../components/FeaturedRow';
+import Category from './category';
+import FeaturedRow from './FeaturedRow';
 import {Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllFeatured} from '../redux/RestaurantsActions';
+import {getAllFeatured} from '../../redux/Restaurants/RestaurantsActions';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ export default function HomeScreen() {
             position: 'absolute',
           }}>
           <Image
-            source={require('../assets/images/FoodDoodle.png')}
+            source={require('../../assets/images/FoodDoodle.png')}
             style={{
               borderBottomRightRadius: 40,
               borderBottomLeftRadius: 40,

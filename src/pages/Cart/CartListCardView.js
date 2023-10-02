@@ -1,9 +1,10 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {Image} from 'react-native';
-import AddMinButton from './AddMinButton';
-import {SIZES} from '../constant';
+import AddMinButton from '../../components/AddMinButton';
+import {SIZES} from '../../constant';
 import * as Icon from 'react-native-feather';
+import {BASE_URI} from '../../constant';
 
 export default function CartListCardView({item}) {
   return (
@@ -11,7 +12,7 @@ export default function CartListCardView({item}) {
       {/* IMAGE  */}
       <Image
         style={{height: 80, width: 70, borderRadius: 15, flex: 1.5, margin: 10}}
-        source={{uri: `http://192.168.100.5:3000${item.image}`}}
+        source={{uri: `${BASE_URI}${item.image}`}}
       />
       {/* Desc Item Container */}
       <View style={styles.descItemContainer}>
